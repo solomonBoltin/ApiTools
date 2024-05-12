@@ -14,13 +14,13 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: downcase REPO
-        run: echo "ACTOR=${{github.actor}}"
+        run: echo "ACTOR1=${{github.actor}}"
         
       - name: downcase REPO
-        run: echo "ACTOR=${ACTOR,,}"
+        run: echo "ACTOR=${ACTOR1,,}"
 
       - name: Print actor
-        run: echo $ACTOR
+        run: echo ${ACTOR}
 
       - name: Build the Docker image
         run: docker build -t my-image .
