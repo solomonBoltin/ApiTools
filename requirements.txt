@@ -1,0 +1,6 @@
+Flask>=2.2.2
+pdf2image>=1.14.0
+Pillow==10.3.0
+requests==2.31.0
+
+# docker run --pull=always -e SANDBOX_USER_ID=%USERID% -e WORKSPACE_MOUNT_PATH=%WORKSPACE_BASE% -v "%abs_path%:/opt/workspace_base" -v "//var/run/docker.sock://var/run/docker.sock" -p 3000:3000 --add-host host.docker.internal:host-gateway ghcr.io/opendevin/opendevin:0.5%
