@@ -17,7 +17,7 @@ jobs:
         run: echo "ACTOR=${{github.actor}}"
         
       - name: downcase REPO
-        run: echo "ACTOR=${ACTOR ,, }"
+        run: echo "ACTOR=${ACTOR,,}"
 
       - name: Print actor
         run: echo $ACTOR
