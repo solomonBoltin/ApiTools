@@ -12,9 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: downcase REPO
-        run: echo "ACTOR=${{github.actor}},,"
+        run: echo "ACTOR=${{github.actor}}"
+        
+      - name: downcase REPO
+        run: echo "ACTOR=${ACTOR ,, }"
 
       - name: Print actor
         run: echo $ACTOR
