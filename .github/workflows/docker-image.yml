@@ -33,7 +33,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag the image
-        run: docker tag my-image ghcr.io/${ACTOR}/my-image:latest
+        run: docker tag my-image ghcr.io/solomonboltin/my-image:latest
 
       - name: Push the image
-        run: docker push ghcr.io/${{ github.actor }}/my-image:latest
+        run: docker push ghcr.io/solomonboltin/my-image:latest
