@@ -1,6 +1,8 @@
 # Use a slim Python 3 base image
 FROM python:3.9-slim-buster
 
+ENV HOST 0.0.0.0
+
 # Install poppler-utils for PDF processing
 RUN apt-get update && apt-get install -y poppler-utils
 
