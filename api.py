@@ -18,9 +18,9 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET'])
 def home():
-    return "Hello, World! 22345"
+    return "Hello API!"
 
-@app.route('/upload', methods=['POST'])
+@app.route('/pdfToJpeg', methods=['POST'])
 def upload_pdf():
     print(request.files)
     if 'file' not in request.files:

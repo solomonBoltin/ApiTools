@@ -50,11 +50,13 @@ class TestAPI(unittest.TestCase):
 # test the api using requests
 import requests
 
+DEPLOYED_BASE = 'https://apitools-bupdvuqama-uc.a.run.app/'
+
 def testValidFileUpload():
-    url = 'https://api-tools-bupdvuqama-uc.a.run.app/upload'
+    url = DEPLOYED_BASE + 'pdfToJpeg'
     with open('test_files/test.pdf', 'rb') as f:
         files = {'file': ('test.pdf', f)} 
-        response = requests.post(url, files=files)
+        response = requests.post(DEPLOYED_BASE, files=files)
 
     # Check if the response has a 200 save response image to output.jpg
     assert response.status_code == 200
@@ -65,6 +67,13 @@ def testValidFileUpload():
 
 
 
+def testBaseRoute():
+    response = requests.get(DEPLOYED_BASE)
+    assert response.status_code == 200
+    assert response.text == "Hello API!"
+    print("Base route test passed")
+
 
 if __name__ == '__main__':
     testValidFileUpload()
+    testBaseRoute()
