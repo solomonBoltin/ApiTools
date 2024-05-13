@@ -19,7 +19,7 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 
 # Define the command to run your Flask app
-CMD ["python", "api.py"]
+CMD ["python", "src/api.py"]
 
 # Build the Docker image  
 
