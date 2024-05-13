@@ -21,4 +21,5 @@ EXPOSE 8080
 # Define the command to run your Flask app
 CMD ["python", "api.py"]
 
+# Build the Docker image
 
