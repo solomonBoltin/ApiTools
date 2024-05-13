@@ -12,13 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: downcase REPO
-        run: echo "actor=${${{github.actor}},,}" >>${GITHUB_ENV}
-
-      - name: Print actor
-        run: echo $actor
-
+      
       - name: Build the Docker image
         run: docker build -t my-image .
 
