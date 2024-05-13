@@ -77,15 +77,15 @@ def prepare_response_big_image(images):
    # prepare response to one big image horizontally 
     # combine images horizontally
     widths, heights = zip(*(i.size for i in images))
-    total_width = sum(widths)
-    max_height = max(heights)
+    total_width = max(widths)
+    max_height = sum(heights)
 
     new_image = Image.new('RGB', (total_width, max_height))
 
-    x_offset = 0
+    y_offset = 0
     for image in images:
-        new_image.paste(image, (x_offset, 0))
-        x_offset += image.width
+        new_image.paste(image, (0, y_offset))
+        y_offset += image.height
 
     image_bytes = io.BytesIO()
     new_image.save(image_bytes, format="JPEG")
