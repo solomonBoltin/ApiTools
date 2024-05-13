@@ -94,4 +94,4 @@ def prepare_response_big_image(images):
     
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8080)
