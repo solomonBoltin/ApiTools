@@ -18,7 +18,7 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET'])
 def home():
-    return "Hello, World! 22"
+    return "Hello, World! 223"
 
 @app.route('/upload', methods=['POST'])
 def upload_pdf():
