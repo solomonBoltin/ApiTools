@@ -3,7 +3,7 @@ import unittest
 import os
 
 TEXT_FILE = "./files/test.txt"
-PDF_FILE = "./files/test.pdf"
+PDF_FILE = "./files/test4.pdf"
 
 OUTPUT_FILE = "files/rotate_test.jpg"
 

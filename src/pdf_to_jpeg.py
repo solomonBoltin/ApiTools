@@ -32,11 +32,14 @@ def optimized_pdf_to_jpeg(request: Request):
         pdf_file.close()
 
         # Convert PDF to images
-        images = convert_from_path(pdf_file_path, dpi=300, output_folder=temp_dir, paths_only=True)
+        images = convert_from_path(pdf_file_path, dpi=50, output_folder=temp_dir, paths_only=True)
         print("PdfData")
         print(temp_dir)
         print(images)
 
+        # save first image
+        first_image = cv2.imread(images[0])
+        cv2.imwrite("first.jpg", first_image)
         images = [cv2.imread(image_path) for image_path in images]
         joined = cv2.vconcat([deskew(im) for im in images])
         del images
@@ -46,6 +49,7 @@ def optimized_pdf_to_jpeg(request: Request):
         image_bytes = io.BytesIO(encoded_image)
         image_bytes.seek(0)
         return send_file(image_bytes, as_attachment=True, download_name="converted_images.jpg")
+
 
 def pdf_to_jpeg(request: Request):
     print(request.files)
