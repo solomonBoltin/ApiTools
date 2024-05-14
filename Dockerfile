@@ -5,6 +5,7 @@ ENV HOST 0.0.0.0
 
 # Install poppler-utils for PDF processing
 RUN apt-get update && apt-get install -y poppler-utils
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 # Set working directory for your application
 WORKDIR /app
@@ -19,7 +20,7 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 
 # Define the command to run your Flask app
-CMD ["python", "src/api.py"]
+CMD ["python", "run.py"]
 
 # Build the Docker image  
 
