@@ -52,14 +52,14 @@ def convert_pdf_to_jpegs(pdf_file_path, output_dir):
     return images
 
 
-def autorotate_images(images: List[Image]):
+def autorotate_images(images: List[Image.Image]):
     cv_images = [np.array(image.convert("RGB")) for image in images]
     rotated_images = [deskew(image) for image in cv_images]
     images = [Image.fromarray(image) for image in rotated_images]
     return images
 
 
-def join_images(images: List[Image], vertical=False):
+def join_images(images: List[Image.Image], vertical=False):
     # combine images horizontally or vertically
     widths, heights = zip(*(i.size for i in images))
     if vertical:
