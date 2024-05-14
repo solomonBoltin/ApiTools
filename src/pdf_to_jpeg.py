@@ -13,6 +13,28 @@ from src.utils.deskew import deskew
 ALLOWED_EXTENSIONS = {'pdf'}
 
 
+
+def resize_to_width(image, target_width):
+    """
+    Resizes an image to a specified width while maintaining the aspect ratio.
+
+    Args:
+        image: The input image (numpy array).
+        target_width: The desired width of the resized image.
+
+    Returns:
+        The resized image (numpy array).
+    """
+    original_height, original_width = image.shape[:2]
+    aspect_ratio = original_width / original_height
+
+    new_width = target_width
+    new_height = int(new_width / aspect_ratio)  # Maintain aspect ratio
+
+    resized_image = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_AREA)  # High-quality interpolation for downscaling
+
+    return resized_image
+
 def optimized_pdf_to_jpeg(request: Request):
     print(request.files)
     if 'file' not in request.files:
@@ -40,9 +62,18 @@ def optimized_pdf_to_jpeg(request: Request):
         # save first image
         first_image = cv2.imread(images[0])
         cv2.imwrite("first.jpg", first_image)
-        images = [cv2.imread(image_path) for image_path in images]
-        joined = cv2.vconcat([deskew(im) for im in images])
+        images = [cv2.imread(image_path, 1) for image_path in images]
+        rotated_images = [deskew(image) for image in images]
         del images
+
+        # make all images the same size
+        max_width = max(image.shape[1] for image in rotated_images)
+        resized_images = [ resize_to_width(image, max_width) for image in rotated_images]
+        del rotated_images
+
+        joined = cv2.vconcat(resized_images)
+        del resized_images
+
         cv2.imwrite("joined.jpg", joined)
         _, encoded_image = cv2.imencode('.jpg', joined)
         del joined
