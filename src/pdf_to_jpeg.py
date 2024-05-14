@@ -13,6 +13,40 @@ from src.utils.deskew import deskew
 ALLOWED_EXTENSIONS = {'pdf'}
 
 
+def optimized_pdf_to_jpeg(request: Request):
+    print(request.files)
+    if 'file' not in request.files:
+        return "No file part", 400
+
+    pdf_file = request.files['file']
+    if pdf_file.filename == '':
+        return "No selected file", 400
+
+    if not allowed_file(pdf_file.filename):
+        return "File type not allowed", 400
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Save PDF temporarily
+        pdf_file_path = tempfile.NamedTemporaryFile(dir=temp_dir, delete=False).name
+        pdf_file.save(pdf_file_path)
+        pdf_file.close()
+
+        # Convert PDF to images
+        images = convert_from_path(pdf_file_path, dpi=300, output_folder=temp_dir, paths_only=True)
+        print("PdfData")
+        print(temp_dir)
+        print(images)
+
+        images = [cv2.imread(image_path) for image_path in images]
+        joined = cv2.vconcat([deskew(im) for im in images])
+        del images
+        cv2.imwrite("joined.jpg", joined)
+        _, encoded_image = cv2.imencode('.jpg', joined)
+        del joined
+        image_bytes = io.BytesIO(encoded_image)
+        image_bytes.seek(0)
+        return send_file(image_bytes, as_attachment=True, download_name="converted_images.jpg")
+
 def pdf_to_jpeg(request: Request):
     print(request.files)
     if 'file' not in request.files:

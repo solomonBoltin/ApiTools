@@ -4,7 +4,7 @@ from PIL import Image
 import tempfile
 import io
 
-from src.pdf_to_jpeg import pdf_to_jpeg
+from src.pdf_to_jpeg import pdf_to_jpeg, optimized_pdf_to_jpeg
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def home():
 
 @app.route('/pdfToJpeg', methods=['POST'])
 def upload_pdf():
-    return pdf_to_jpeg(request)
+    return optimized_pdf_to_jpeg(request)
 
 
 

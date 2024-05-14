@@ -4,8 +4,7 @@ FROM python:3.9-slim-buster
 ENV HOST 0.0.0.0
 
 # Install poppler-utils for PDF processing
-RUN apt-get update && apt-get install -y poppler-utils
-RUN apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get update --fix-missing && apt-get install -y ffmpeg libsm6 libxext6 poppler-utils
 
 # Set working directory for your application
 WORKDIR /app
