@@ -2,7 +2,7 @@ import unittest
 import cv2
 import pytesseract
 from PIL import Image, ImageDraw
-from  layoutparser.models import Detectron2LayoutModel
+from layoutparser.models import Detectron2LayoutModel
 
 from src.utils.deskew import deskew
 
@@ -76,8 +76,6 @@ class TestUtils(unittest.TestCase):
         print(layout)
 
 
-
-
 def preprocess_for_ocr(image_path):
     """Preprocesses a scanned document image for optimal OCR performance."""
 
@@ -92,9 +90,8 @@ def preprocess_for_ocr(image_path):
 
     # 3. Adaptive Thresholding
     img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                   cv2.THRESH_BINARY, 11, 2)  # Block size 11, C = 2
+                                cv2.THRESH_BINARY, 11, 2)  # Block size 11, C = 2
     cv2.imwrite("files/tresh.jpg", img)
-
 
     # 4. Morphological Operations (Fine-tune based on your documents)
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))  # Small kernel
@@ -106,8 +103,6 @@ def preprocess_for_ocr(image_path):
     # inverted = cv2.bitwise_not(closing)  # Invert colors
 
     return closing
-
-
 
 
 if __name__ == '__main__':
